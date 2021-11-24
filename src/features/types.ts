@@ -9,7 +9,7 @@ export interface PROPS_AUTHEN {
     password: string;
 }
 
- export interface PROPS_PROFILE {
+export interface PROPS_PROFILE {
     id: number;
     nickName: string;
     img: File | null;
