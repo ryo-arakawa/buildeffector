@@ -81,7 +81,7 @@ export const fetchAsyncGetProfs = createAsyncThunk("profiles/get", async () => {
 });
 
 export const authSlice = createSlice({
-    name: 'auth',
+    name: "auth",
     initialState: {
         openSignIn: true,
         openSignUp: false,
