@@ -62,6 +62,33 @@ const Auth: React.FC = () => {
         }}
         style={customStyles}
       >
+        <Formik
+          initialErrors={{ email: "required" }}
+          initialValues={{ email: "", password: "" }}
+          onSubmit={async (values) => {
+            await dispatch(fetchCredStart());
+            const resultReg = await dispatch(fetchAsyncRegister(values));
+
+            if (fetchAsyncRegister.fulfilled.match(resultReg)) {
+              await dispatch(fetchAsyncLogin(values));
+              await dispatch(fetchAsyncCreateProf({ nickName: "anonymous" }));
+
+              await dispatch(fetchAsyncGetProfs());
+              // await dispatch(fetchAsyncGetPosts());
+              // await dispatch(fetchAsyncGetComments());
+              await dispatch(fetchAsyncGetMyProf());
+            }
+            await dispatch(fetchCredEnd());
+            await dispatch(resetOpenSignUp());
+          }}
+          validationSchema={Yup.object().shape({
+            email: Yup.string()
+              .email("email format is wrong")
+              .required("email is must"),
+            password: Yup.string().required("password is must").min(8),
+          })}
+        >
+        </Formik>
       </Modal>
     </>
   );
