@@ -180,7 +180,7 @@ const Auth: React.FC = () => {
             email: Yup.string()
               .email("email format is wrong")
               .required("email is must"),
-            password: Yup.string().required("password is must").min(4),
+            password: Yup.string().required("password is must").min(8),
           })}
         >
           {({
