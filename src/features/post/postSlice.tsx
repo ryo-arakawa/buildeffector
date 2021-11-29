@@ -4,6 +4,7 @@ import axios from "axios";
 import { PROPS_NEWPOST, PROPS_LIKED, PROPS_COMMENT } from "../types";
 
 const apiUrlPost = `${process.env.REACT_APP_DEV_API_URL}api/post/`;
+const apiUrlComment = `${process.env.REACT_APP_DEV_API_URL}api/comment/`;
 
 export const fetchAsyncGetPosts = createAsyncThunk("post/get", async () => {
   const res = await axios.get(apiUrlPost, {
@@ -60,6 +61,30 @@ export const fetchAsyncPatchLiked = createAsyncThunk(
     const res = await axios.patch(`${apiUrlPost}${liked.id}/`, uploadData, {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `JWT ${localStorage.localJWT}`,
+      },
+    });
+    return res.data;
+  }
+);
+
+export const fetchAsyncGetComments = createAsyncThunk(
+  "comment/get",
+  async () => {
+    const res = await axios.get(apiUrlComment, {
+      headers: {
+        Authorization: `JWT ${localStorage.localJWT}`,
+      },
+    });
+    return res.data;
+  }
+);
+
+export const fetchAsyncPostComment = createAsyncThunk(
+  "comment/post",
+  async (comment: PROPS_COMMENT) => {
+    const res = await axios.post(apiUrlComment, comment, {
+      headers: {
         Authorization: `JWT ${localStorage.localJWT}`,
       },
     });
