@@ -96,7 +96,7 @@ const Core: React.FC = () => {
     <div>
       <Auth />
       <div className={styles.core_header}>
-        <h1 className={styles.core_title}>Build effector</h1>
+        <h1 className={styles.core_title}>SNS clone</h1>
         {profile?.nickName ? (
           <>
             <button
@@ -121,6 +121,24 @@ const Core: React.FC = () => {
               >
                 Logout
               </Button>
+              <button
+                className={styles.core_btnModal}
+                onClick={() => {
+                  dispatch(setOpenProfile());
+                  dispatch(resetOpenNewPost());
+                }}
+              >
+                <StyledBadge
+                  overlap="circle"
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                  }}
+                  variant="dot"
+                >
+                  <Avatar alt="who?" src={profile.img} />{" "}
+                </StyledBadge>
+              </button>
             </div>
           </>
         ) : (
