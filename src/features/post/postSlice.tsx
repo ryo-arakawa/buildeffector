@@ -14,3 +14,18 @@ export const fetchAsyncGetPosts = createAsyncThunk("post/get", async () => {
   return res.data;
 });
 
+export const fetchAsyncNewPost = createAsyncThunk(
+  "post/post",
+  async (newPost: PROPS_NEWPOST) => {
+    const uploadData = new FormData();
+    uploadData.append("title", newPost.title);
+    newPost.img && uploadData.append("img", newPost.img, newPost.img.name);
+    const res = await axios.post(apiUrlPost, uploadData, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${localStorage.localJWT}`,
+      },
+    });
+    return res.data;
+  }
+);
