@@ -169,8 +169,8 @@ const Auth: React.FC = () => {
             const result = await dispatch(fetchAsyncLogin(values));
             if (fetchAsyncLogin.fulfilled.match(result)) {
               await dispatch(fetchAsyncGetProfs());
-              await dispatch(fetchAsyncGetPosts());
-              await dispatch(fetchAsyncGetComments());
+              // await dispatch(fetchAsyncGetPosts());
+              // await dispatch(fetchAsyncGetComments());
               await dispatch(fetchAsyncGetMyProf());
             }
             await dispatch(fetchCredEnd());
@@ -195,7 +195,7 @@ const Auth: React.FC = () => {
             <div>
               <form onSubmit={handleSubmit}>
                 <div className={styles.auth_signUp}>
-                  <h1 className={styles.auth_title}>SNS clone</h1>
+                  <h1 className={styles.auth_title}>Build effector</h1>
                   <br />
                   <div className={styles.auth_progress}>
                     {isLoadingAuth && <CircularProgress />}
