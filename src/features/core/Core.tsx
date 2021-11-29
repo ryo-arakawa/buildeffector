@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from "react";
 import Auth from "../auth/Auth";
 
 import styles from "./Core.module.css";
@@ -68,13 +68,35 @@ const StyledBadge = withStyles((theme) => ({
   },
 }))(Badge);
 
-
 const Core: React.FC = () => {
-    return (
-        <div>
-            <Auth />
-        </div>
-    );
+  const dispatch: AppDispatch = useDispatch();
+  const profile = useSelector(selectProfile);
+  const posts = useSelector(selectPosts);
+  const isLoadingPost = useSelector(selectIsLoadingPost);
+  const isLoadingAuth = useSelector(selectIsLoadingAuth);
+
+  useEffect(() => {
+    const fetchBootLoader = async () => {
+      if (localStorage.localJWT) {
+        dispatch(resetOpenSignIn());
+        const result = await dispatch(fetchAsyncGetMyProf());
+        if (fetchAsyncGetMyProf.rejected.match(result)) {
+          dispatch(setOpenSignIn());
+          return null;
+        }
+        await dispatch(fetchAsyncGetPosts());
+        await dispatch(fetchAsyncGetProfs());
+        await dispatch(fetchAsyncGetComments());
+      }
+    };
+    fetchBootLoader();
+  }, [dispatch]);
+
+  return (
+    <div>
+      <Auth />
+    </div>
+  );
 };
 
 export default Core;
