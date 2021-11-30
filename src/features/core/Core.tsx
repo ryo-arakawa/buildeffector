@@ -39,9 +39,9 @@ import {
   fetchAsyncGetComments,
 } from "../post/postSlice";
 
-// import Post from "../post/Post";
-// import EditProfile from "./EditProfile";
-// import NewPost from "./NewPost";
+import Post from "../post/Post";
+import EditProfile from "./EditProfile";
+import NewPost from "./NewPost";
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -99,8 +99,8 @@ const Core: React.FC = () => {
   return (
     <div>
       <Auth />
-      {/* <EditProfile /> */}
-      {/* <NewPost /> */}
+      <EditProfile />
+      <NewPost />
       <div className={styles.core_header}>
         <h1 className={styles.core_title}>Build effector</h1>
         {profile?.nickName ? (
@@ -178,14 +178,14 @@ const Core: React.FC = () => {
                 .reverse()
                 .map((post) => (
                   <Grid key={post.id} item xs={12} md={4}>
-                    {/* <Post
+                    <Post
                       postId={post.id}
                       title={post.title}
                       loginId={profile.userProfile}
                       userPost={post.userPost}
                       imageUrl={post.img}
                       liked={post.liked}
-                    /> */}
+                    />
                   </Grid>
                 ))}
             </Grid>
